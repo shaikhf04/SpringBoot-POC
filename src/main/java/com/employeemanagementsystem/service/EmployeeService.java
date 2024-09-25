@@ -20,14 +20,6 @@ public class EmployeeService {
 
     Logger logger= LoggerFactory.getLogger(EmployeeService.class);
 
-    /*
-    *   - `POST /employees` – Create a new employee.
-        - `GET /employees/{id}` – Retrieve an employee by ID.
-        - `PUT /employees/{id}` – Update an employee’s information.
-        - `DELETE /employees/{id}` – Delete an employee by ID.
-        - `GET /employees` – Retrieve all employees.
-     */
-
     public Employee createNewEmployee(Employee employee){
         logger.info("Record Added!");
         return employeeRepository.save(employee);
