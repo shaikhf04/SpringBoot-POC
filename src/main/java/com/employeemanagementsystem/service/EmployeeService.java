@@ -34,7 +34,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee updateEmployees(Employee employee, Integer id) {
+    public Employee updateEmployees(Employee employee, Integer id) throws EmployeeNotFoundException {
         logger.info("Record Updated !");
         Optional<Employee> existEmployee = employeeRepository.findById(id);
         //Check if object exists already then update it
@@ -52,7 +52,7 @@ public class EmployeeService {
         }
     }
 
-    public void deleteEmployee(Integer id) {
+    public void deleteEmployee(Integer id) throws RecordDoesNotExistException{
         logger.info("Records deleted!");
         Optional<Employee> existEmployee = employeeRepository.findById(id);
         if(existEmployee.isPresent()) {

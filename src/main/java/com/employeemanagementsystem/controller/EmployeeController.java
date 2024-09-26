@@ -19,13 +19,13 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @PostMapping("/employees")
+    @PostMapping("/employee")
     public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee){
          Employee newEmployee= employeeService.createNewEmployee(employee);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/employee/{id}")
     public ResponseEntity<Optional<Employee>> getEmployee(@PathVariable Integer id){
         Optional<Employee> employee = employeeService.getEmployee(id);
         if(employee.isPresent())
@@ -34,7 +34,7 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/employees/all")
+    @GetMapping("/employee/all")
     public ResponseEntity<List<Employee>> getAllEmployees(){
         List<Employee> employeeList = employeeService.getAllEmployees();
         return new ResponseEntity<>(employeeList,HttpStatus.OK);
