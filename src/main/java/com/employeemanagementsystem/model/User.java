@@ -18,9 +18,6 @@ public class User {
     @NotNull(message = "Password cannot be null")
     private String password;
 
-    @NotNull(message = "email cannot be null")
-    private String email;
-
     public User() {
     }
 
@@ -52,14 +49,6 @@ public class User {
 
     public void setPassword(@NotNull(message = "Password cannot be null") String password) {
         this.password = password;
-    }
-
-    public @NotNull(message = "email cannot be null") String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@NotNull(message = "email cannot be null") String email) {
-        this.email = email;
     }
 
 }

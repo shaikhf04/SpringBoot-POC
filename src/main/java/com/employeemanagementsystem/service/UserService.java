@@ -1,4 +1,3 @@
-/*
 package com.employeemanagementsystem.service;
 
 import com.employeemanagementsystem.model.User;
@@ -22,7 +21,7 @@ public class UserService {
 
     public void saveUser(UserDTO dto) {
         User entity = new User();
-        dto.setPassword(dto.getPassword());//passwordEncoder.encode(dto.getPassword()));
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         BeanUtils.copyProperties(dto, entity);
         User savedUser = userRepository.save(entity);
         dto.setPassword("******");
@@ -37,4 +36,3 @@ public class UserService {
     }
 }
 
-*/

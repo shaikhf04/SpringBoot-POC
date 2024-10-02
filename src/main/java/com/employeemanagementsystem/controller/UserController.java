@@ -1,4 +1,3 @@
-/*
 package com.employeemanagementsystem.controller;
 
 import com.employeemanagementsystem.errorHandling.InvalidPayloadException;
@@ -29,14 +28,16 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        if (Objects.isNull(userDTO)) {
+        if (userDTO==null) {
             throw new InvalidPayloadException("Payload cannot be Null");
         }
         if(userService.findByUsername(userDTO.getUsername())){
             throw new UserAlreadyExistsException("Username name already exists, Try using another username ");
         }
-        userService.saveUser(userDTO);
-        return ResponseEntity.ok("User registered successfully");
+        if(userDTO.getUsername()!=null && userDTO.getPassword()!=null){
+            userService.saveUser(userDTO);
+        }
+
+        return ResponseEntity.ok("User registered successfully. Welcome "+ userDTO.getUsername());
     }
 }
-*/

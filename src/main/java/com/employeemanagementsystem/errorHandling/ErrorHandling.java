@@ -1,5 +1,6 @@
 package com.employeemanagementsystem.errorHandling;
 
+import com.employeemanagementsystem.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,20 +10,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ErrorHandling {
 
-    //Custom exception
+    //5506 Employee Not Found!
     @ExceptionHandler(RecordDoesNotExistException.class)
     public ResponseEntity<Error> notExists(RecordDoesNotExistException recordDoesNotExistException){
         Error error = new Error();
-        error.setErrorCode(String.valueOf(HttpStatus.BAD_REQUEST));
+        error.setErrorCode("5506 Record Does Not Exist!");
         error.setErrorMessage(recordDoesNotExistException.getMessage());
         return ResponseEntity.ok(error);
     }
 
-    //Custom exception
+    //5505 Employee Not Found!
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<Error> employeeNotFound(EmployeeNotFoundException employeeNotFoundException){
         Error error = new Error();
-        error.setErrorCode(String.valueOf(HttpStatus.BAD_REQUEST));
+        error.setErrorCode("5505 Employee Not Found!");
         error.setErrorMessage(employeeNotFoundException.getMessage());
         return ResponseEntity.ok(error);
     }
@@ -35,4 +36,14 @@ public class ErrorHandling {
         error.setErrorMessage(methodArgumentNotValidException.getMessage());
         return ResponseEntity.ok(error);
     }
+
+    //5504 Username Already Exists
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Error> invalidException(UserAlreadyExistsException userAlreadyExistsException){
+        Error error = new Error();
+        error.setErrorCode("5504 Username Already Exists!");
+        error.setErrorMessage(userAlreadyExistsException.getMessage());
+        return ResponseEntity.ok(error);
+    }
+
 }

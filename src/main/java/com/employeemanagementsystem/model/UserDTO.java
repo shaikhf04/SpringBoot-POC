@@ -1,4 +1,3 @@
-/*
 package com.employeemanagementsystem.model;
 
 import lombok.Data;
@@ -25,4 +24,3 @@ public class UserDTO {
         this.password = password;
     }
 }
-*/
