@@ -38,23 +38,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {
-        logger.info("**** Inside Filter Requests: " );
         String authorizationHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            logger.info("jwt: " + jwt);
             username = jwtTokenUtil.extractUsername(jwt);
             if(username.isEmpty())
                 throw new UsernameNotFoundException("Username Not Found Exception");
-            logger.info("Username from token: " + username);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = employeeService.loadUserByUsername(username);
-            logger.info("UserDetails Object: "+ userDetails);
             if (jwtTokenUtil.validateToken(jwt, userDetails.getUsername())) {
                 // Set the authentication details in the security context
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

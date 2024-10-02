@@ -50,7 +50,7 @@ public class JwtTokenUtil {
         return (tokenUsername.equals(username) && !isTokenExpired(token));
     }
 
-    // Extract username
+    // Extract username from JWT Token
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
