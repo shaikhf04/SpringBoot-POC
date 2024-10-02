@@ -48,8 +48,9 @@ public class AuthController {
                 logger.info("Error in authController : "+ e );
                 throw new EmployeeNotFoundException("Employee Record Not Found id: " + authenticationRequest.getUsername());
             }
-        logger.info("******Done /authenticate endpoints ");
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+            logger.info("******Done /authenticate endpoints ");
+            AuthenticationResponse response = new AuthenticationResponse(jwt);
+        return ResponseEntity.ok(response);
     }
 
     private void authenticate(String username, String password) throws Exception {
