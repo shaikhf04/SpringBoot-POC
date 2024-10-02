@@ -1,23 +1,44 @@
 package com.employeemanagementsystem.utility;
 
-import io.jsonwebtoken.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
-public class JwtUtil {
-    private final String SECRET_KEY = "secretKey-of-JWT-Token-Test";
-    private final Integer TOKEN_VALIDITY = 1000 * 60 * 60 ; // 1 hours validity
+@PropertySource("classpath:application.properties")
+public class JwtTokenUtil {
 
-    // Generate token
-    public String generateToken(String username) {
-        return Jwts.builder()
+    @Value("${secretKey}")
+    private String SECRET_KEY;
+
+    @Value("${secretKey.validity}")
+    private Long TOKEN_VALIDITY;
+
+    private Key getSigningKey() {
+        byte[] keyBytes = this.SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String username) {
+        return Jwts.builder().addClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -29,8 +50,9 @@ public class JwtUtil {
 
     // Extract username
     public String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -44,8 +66,9 @@ public class JwtUtil {
 
     // Extract expiration date
     public Date extractExpiration(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getExpiration();

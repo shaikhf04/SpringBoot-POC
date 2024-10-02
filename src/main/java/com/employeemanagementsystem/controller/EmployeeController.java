@@ -14,40 +14,41 @@ import java.util.Optional;
 
 @Validated
 @RestController
+@RequestMapping("/emp/")
 public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
 
     @PostMapping("/employee")
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee){
-         Employee newEmployee= employeeService.createNewEmployee(employee);
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) {
+        Employee newEmployee = employeeService.createNewEmployee(employee);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
     @GetMapping("/employee/{id}")
-    public ResponseEntity<Optional<Employee>> getEmployee(@PathVariable Integer id){
+    public ResponseEntity<Optional<Employee>> getEmployee(@PathVariable Integer id) {
         Optional<Employee> employee = employeeService.getEmployee(id);
-        if(employee.isPresent())
+        if (employee.isPresent())
             return new ResponseEntity<>(employee, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/employee/all")
-    public ResponseEntity<List<Employee>> getAllEmployees(){
+    public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employeeList = employeeService.getAllEmployees();
-        return new ResponseEntity<>(employeeList,HttpStatus.OK);
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
     @PutMapping("/employee/{id}")
-    public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee, @PathVariable Integer id){
-            Employee updatedEmployee =  employeeService.updateEmployees(employee,id);
-            return new ResponseEntity<>(updatedEmployee,HttpStatus.OK);
+    public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee, @PathVariable Integer id) {
+        Employee updatedEmployee = employeeService.updateEmployees(employee, id);
+        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
     }
 
     @DeleteMapping("/employee/{id}")
-    public ResponseEntity<Object> deleteEmployee(@PathVariable Integer id){
+    public ResponseEntity<Object> deleteEmployee(@PathVariable Integer id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok("Employee Record deleted successfully");
     }
