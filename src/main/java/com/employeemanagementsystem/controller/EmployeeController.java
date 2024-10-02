@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Validated
 @RestController
-@RequestMapping("/emp/")
 public class EmployeeController {
 
     @Autowired

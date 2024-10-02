@@ -7,18 +7,14 @@ import com.employeemanagementsystem.repository.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeService implements UserDetailsService {
+public class EmployeeService {//implements UserDetailsService {
 
     Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
@@ -53,20 +49,6 @@ public class EmployeeService implements UserDetailsService {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Employee> user = employeeRepository.findByUsername(username);
-        logger.info(" loaduserbyusername: " + user);
-        if (user.isPresent()) {
-            return new org.springframework.security.core.userdetails.User(
-                   user.get().getUsername(),
-                    /*passwordEncoder.encode(*/user.get().getPassword()
-                    , new ArrayList<>());
-        }else{
-        throw new UsernameNotFoundException("User is not found in Employee Repository");
-        }
     }
 
     public Employee createNewEmployee(Employee employee) {

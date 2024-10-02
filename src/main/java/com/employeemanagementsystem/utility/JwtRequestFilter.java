@@ -2,6 +2,7 @@ package com.employeemanagementsystem.utility;
 
 import com.employeemanagementsystem.service.EmployeeService;
 
+import com.employeemanagementsystem.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,10 +27,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     @Lazy
-    EmployeeService employeeService;
+    UserService userService;
 
-    public JwtRequestFilter(EmployeeService employeeService, JwtTokenUtil jwtTokenUtil) {
-        this.employeeService = employeeService;
+    public JwtRequestFilter(UserService userService, JwtTokenUtil jwtTokenUtil) {
+        this.userService= userService;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
@@ -50,7 +51,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = employeeService.loadUserByUsername(username);
+            UserDetails userDetails = userService.loadUserByUsername(username);
             if (jwtTokenUtil.validateToken(jwt, userDetails.getUsername())) {
                 // Set the authentication details in the security context
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

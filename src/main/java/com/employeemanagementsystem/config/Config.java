@@ -1,6 +1,8 @@
 package com.employeemanagementsystem.config;
 
+import com.employeemanagementsystem.model.User;
 import com.employeemanagementsystem.service.EmployeeService;
+import com.employeemanagementsystem.service.UserService;
 import com.employeemanagementsystem.utility.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class Config {
 
     @Autowired
-    EmployeeService employeeService;
+    UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -39,7 +41,7 @@ public class Config {
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(employeeService)
+        authenticationManagerBuilder.userDetailsService(userService)
                 .passwordEncoder(passwordEncoder);  // Ensure BCrypt is used here
         return authenticationManagerBuilder.build();
     }
@@ -49,9 +51,9 @@ public class Config {
         httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**") );
         httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         httpSecurity.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/auth/test*", "/emp/employee","/user/register").permitAll()
+                .requestMatchers("/test","/user/register","/authenticate/getToken").permitAll()
                 .requestMatchers("/h2-console**/**").permitAll()
-                .requestMatchers("/auth/authenticate/login").permitAll() // Allow public access to token generation
+                .requestMatchers("/authenticate/login").permitAll() // Allow public access to token generation
                 .anyRequest().authenticated()); //Any other request will be restricted
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
         return httpSecurity.build();
