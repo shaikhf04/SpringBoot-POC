@@ -30,3 +30,24 @@
 6. **Testing**: - (In progress)
     - Write
     - test cases for the API endpoints using Spring Boot Test framework (e.g., `@WebMvcTest`, `@DataJpaTest`).
+
+
+2 October :
+
+-Technology 
+	jjwt 0.11.5
+	H2 – embedded database
+
+1. Implement JWT Security Implementation
+2. Implement Repositories
+3. Configure Spring Security
+4. Implement UserDetailsService in Service class
+5. Filter the request using JWTFilterRequest
+6. Create JWT Utility class - token generation, validation, extraction
+7. Handle Authentication Exception 
+8. Define payload for Authentication Request and Response
+9. Create Spring Controllers
+10. Test the Endpoints
+
+
+
