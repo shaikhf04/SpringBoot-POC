@@ -1,7 +1,5 @@
 package com.employeemanagementsystem.config;
 
-import com.employeemanagementsystem.model.User;
-import com.employeemanagementsystem.service.EmployeeService;
 import com.employeemanagementsystem.service.UserService;
 import com.employeemanagementsystem.utility.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableMethodSecurity
 @Configuration
-public class Config {
+public class SecurityConfiguration {
 
     @Autowired
     UserService userService;
