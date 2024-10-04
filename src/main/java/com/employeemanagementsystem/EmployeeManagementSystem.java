@@ -10,8 +10,6 @@ import org.springframework.context.ApplicationContext;
 
 public class EmployeeManagementSystem {
     public static void main(String[] args) {
-
-        ApplicationContext applicationContext = SpringApplication.run(EmployeeManagementSystem.class,args);
-        System.out.println(applicationContext.toString());
+         SpringApplication.run(EmployeeManagementSystem.class,args);
     }
 }

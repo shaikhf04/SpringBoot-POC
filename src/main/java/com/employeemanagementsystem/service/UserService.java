@@ -1,5 +1,6 @@
 package com.employeemanagementsystem.service;
 
+import com.employeemanagementsystem.errorhandling.UserAlreadyExistsException;
 import com.employeemanagementsystem.model.User;
 import com.employeemanagementsystem.model.UserDTO;
 import com.employeemanagementsystem.repository.UserRepository;
@@ -33,11 +34,21 @@ public class UserService{
     }
 
     public void saveUser(UserDTO dto) {
-        User entity = new User();
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-        BeanUtils.copyProperties(dto, entity);
+        Optional.ofNullable(dto)
+               // .map(userDTO -> userDTO.getUsername().toUpperCase())
+                .filter(username -> !this.findByUsername(username.getUsername())) // Only proceed if the user doesn't exist
+                .orElseThrow(() -> new UserAlreadyExistsException("Username already exists, try using another username"));
+
+        User entity = Optional.of(dto)
+                .map(userDto -> {
+                    userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+                    User user = new User();
+                    BeanUtils.copyProperties(userDto, user);
+                    return user;
+                })
+                .orElseThrow(() -> new RuntimeException("Failed to map UserDTO to User entity"));
+
         userRepository.save(entity);
-        dto.setPassword("******");
     }
 
     public boolean findByUsername(String username) {
