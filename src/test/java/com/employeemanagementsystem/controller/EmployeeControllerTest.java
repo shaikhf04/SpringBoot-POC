@@ -1,8 +1,8 @@
 /*
 package com.employeemanagementsystem.controller;
 
-import com.employeemanagementsystem.errorHandling.EmployeeNotFoundException;
-import com.employeemanagementsystem.errorHandling.RecordDoesNotExistException;
+import com.employeemanagementsystem.errorhandling.EmployeeNotFoundException;
+import com.employeemanagementsystem.errorhandling.RecordDoesNotExistException;
 import com.employeemanagementsystem.model.Employee;
 import com.employeemanagementsystem.repository.EmployeeRepository;
 import com.employeemanagementsystem.service.EmployeeService;
@@ -46,13 +46,13 @@ class EmployeeControllerTest {
     ObjectMapper objectMapper;
 
     @BeforeEach
-    public void setup() {
+     void setup() {
         MockitoAnnotations.openMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(employeeController).build();
         objectMapper = new ObjectMapper();
     }
 
-    public Employee createValues() {
+     Employee createValues() {
         Employee employeeMock = new Employee();
         employeeMock.setFirstName("first");
         employeeMock.setLastName("last");
@@ -62,7 +62,7 @@ class EmployeeControllerTest {
         return employeeMock;
     }
 
-    public Employee setValues() {
+     Employee setValues() {
         Employee employeeMock = new Employee();
         employeeMock.setEmployeeId(1);
         employeeMock.setFirstName("first");
@@ -73,7 +73,7 @@ class EmployeeControllerTest {
         return employeeMock;
     }
 
-    public Employee setValues2() {
+     Employee setValues2() {
         Employee employeeMock = new Employee();
         employeeMock.setEmployeeId(2);
         employeeMock.setFirstName("second");
@@ -85,7 +85,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void createNewEmp() throws Exception {
+    void createNewEmp() {
         when(employeeService.createNewEmployee(any())).thenReturn(createValues());
         ResponseEntity<Employee> responseEntity = employeeController.createEmployee(createValues());
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
@@ -93,28 +93,28 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void testGetEmployee_IfExists() throws Exception {
+     void testGetEmployee_IfExists() {
         when(employeeService.getEmployee(1)).thenReturn(Optional.of(setValues()));
         ResponseEntity<Optional<Employee>> responseEntity = employeeController.getEmployee(1);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
-    public void testGetEmployee_IfNotExists() throws Exception {
+     void testGetEmployee_IfNotExists() {
         when(employeeService.getEmployee(1)).thenReturn(Optional.empty());
         ResponseEntity<Optional<Employee>> responseEntity = employeeController.getEmployee(1);
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
-    public void updateEmployee_Test() throws EmployeeNotFoundException {
+     void updateEmployee_Test() throws EmployeeNotFoundException {
         when(employeeService.updateEmployees(setValues(), 1)).thenReturn(setValues());
             ResponseEntity<Employee> responseEntity=  employeeController.updateEmployee(setValues(),1);
             assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
-    public void updateEmployee_ThrowException() throws EmployeeNotFoundException {
+     void updateEmployee_ThrowException() throws EmployeeNotFoundException {
             when(employeeService.updateEmployees(setValues(), 1)).thenThrow(EmployeeNotFoundException.class);
             assertThrows(EmployeeNotFoundException.class, () -> {
                 ResponseEntity<Employee> responseEntity=  employeeController.updateEmployee(setValues(),1);
@@ -123,7 +123,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void getAllEmployees() throws Exception {
+     void getAllEmployees() {
         List<Employee> employeeList = List.of(setValues(), setValues2());
         when(employeeService.getAllEmployees()).thenReturn(employeeList);
         ResponseEntity<List<Employee>> listResponseEntity = employeeController.getAllEmployees();
@@ -131,7 +131,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void updateEmployee_Error() throws Exception {
+     void updateEmployee_Error()  {
         when(employeeService.updateEmployees(any(),any())).thenThrow(EmployeeNotFoundException.class);
         assertThrows(EmployeeNotFoundException.class, () -> {
             ResponseEntity<Employee> updatedEmployee = employeeController.updateEmployee(setValues(), 1);
@@ -140,13 +140,13 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void deleteEmployee_IfExists() throws Exception {
+     void deleteEmployee_IfExists()  {
         ResponseEntity<Object> objectResponseEntity = employeeController.deleteEmployee(1);
         assertEquals(HttpStatus.OK, objectResponseEntity.getStatusCode());
     }
 
     @Test
-    public void deleteEmployee_Exception_IfNotExist() throws RecordDoesNotExistException {
+     void deleteEmployee_Exception_IfNotExist() throws RecordDoesNotExistException {
          doThrow(new RecordDoesNotExistException("Record Not Exists")).when(employeeService).deleteEmployee(any());
          assertThrows(RecordDoesNotExistException.class, () -> {
              ResponseEntity<Object> objectResponseEntity = employeeController.deleteEmployee(any());

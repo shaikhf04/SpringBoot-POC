@@ -1,4 +1,4 @@
-package com.employeemanagementsystem.errorHandling;
+package com.employeemanagementsystem.errorhandling;
 
 public class InvalidPayloadException extends RuntimeException {
     public InvalidPayloadException(String payloadCannotBeNull) {

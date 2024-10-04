@@ -1,8 +1,8 @@
-package com.employeemanagementsystem.config;
+package com.employeemanagementsystem.configuration;
 
 import com.employeemanagementsystem.service.UserService;
 import com.employeemanagementsystem.utility.JwtRequestFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,15 +15,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@AllArgsConstructor
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfiguration {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public SecurityConfiguration(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    String[] publicEndpoints = {
+            "/test",
+            "/authenticate/login",
+            "/authenticate/refreshToken",
+            "/user/register",
+            "/h2-console/**",
+            "/swagger/**",
+            "/v3/api-docs/swagger-config",
+            "/v3/api-docs"
+    };
 
     @Bean
     public JwtRequestFilter jwtAuthenticationFilter() {
@@ -46,12 +60,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**") );
+        httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**"));
         httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
-        httpSecurity.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/test","/user/register","/authenticate/getToken").permitAll()
-                .requestMatchers("/h2-console**/**").permitAll()
-                .requestMatchers("/authenticate/login").permitAll() // Allow public access to token generation
+        httpSecurity.authorizeHttpRequests(requests -> requests
+                .requestMatchers(publicEndpoints).permitAll()
+//                .requestMatchers("/test", "/user/register", "/authenticate/**").permitAll()
+//                .requestMatchers("/h2-console**/**", "/swagge**/**", "/v3/api-docs/swagger-config", "/v3/api-docs").permitAll()
+//                .requestMatchers("/authenticate/login").permitAll() // Allow public access to token generation
                 .anyRequest().authenticated()); //Any other request will be restricted
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
         return httpSecurity.build();

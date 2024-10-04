@@ -32,8 +32,7 @@
     - test cases for the API endpoints using Spring Boot Test framework (e.g., `@WebMvcTest`, `@DataJpaTest`).
 
 
-2 October :
-
+2 October 2024:
 -Technology 
 	jjwt 0.11.5
 	H2 – embedded database
@@ -48,6 +47,7 @@
 8. Define payload for Authentication Request and Response
 9. Create Spring Controllers
 10. Test the Endpoints
+
 
 
 

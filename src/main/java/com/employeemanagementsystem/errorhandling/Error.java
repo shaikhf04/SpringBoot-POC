@@ -1,4 +1,4 @@
-package com.employeemanagementsystem.errorHandling;
+package com.employeemanagementsystem.errorhandling;
 
 import lombok.*;
 
@@ -6,20 +6,4 @@ import lombok.*;
 public class Error {
     private String errorCode;
     private String errorMessage;
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
 }

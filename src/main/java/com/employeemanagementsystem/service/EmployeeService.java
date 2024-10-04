@@ -1,31 +1,34 @@
 package com.employeemanagementsystem.service;
 
-import com.employeemanagementsystem.errorHandling.EmployeeNotFoundException;
-import com.employeemanagementsystem.errorHandling.RecordDoesNotExistException;
+import com.employeemanagementsystem.errorhandling.EmployeeNotFoundException;
+import com.employeemanagementsystem.errorhandling.RecordDoesNotExistException;
 import com.employeemanagementsystem.model.Employee;
 import com.employeemanagementsystem.repository.EmployeeRepository;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
-public class EmployeeService {//implements UserDetailsService {
-
+public class EmployeeService {
     Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
     private Integer id;
     private String username;
     private String password;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
+        this.employeeRepository = employeeRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Integer getId() {
         return id;
