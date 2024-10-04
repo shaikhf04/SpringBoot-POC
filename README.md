@@ -48,6 +48,11 @@
 9. Create Spring Controllers
 10. Test the Endpoints
 
+4 October 2024:
 
+1. Application properties - profiling dev, test
+2. Open API - swagger 
+3. Sonar Lint for code analysis
+4. Feign Client  - microservices
 
 
