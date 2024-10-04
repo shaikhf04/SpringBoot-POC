@@ -3,11 +3,9 @@ package com.employeemanagementsystem.service;
 import com.employeemanagementsystem.model.User;
 import com.employeemanagementsystem.model.UserDTO;
 import com.employeemanagementsystem.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,25 +15,19 @@ import java.util.Optional;
 
 
 @Service
-public class UserService implements UserDetailsService {
+@AllArgsConstructor
+public class UserService{
 
-    Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    UserRepository userRepository;
-    PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             return new org.springframework.security.core.userdetails.User(
-                    user.get().getUsername(), user.get().getPassword(),new ArrayList<>());
-        }else{
+                    user.get().getUsername(), user.get().getPassword(), new ArrayList<>());
+        } else {
             throw new UsernameNotFoundException("User is not found in Employee Repository");
         }
     }

@@ -5,8 +5,7 @@ import com.employeemanagementsystem.response.AuthenticationResponse;
 import com.employeemanagementsystem.service.UserService;
 import com.employeemanagementsystem.utility.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "AuthController", description = "The Authorization API")
 @RestController
+@AllArgsConstructor
 public class AuthController {
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    private AuthenticationManager authenticationManager;
-    private JwtTokenUtil jwtTokenUtil;
-    UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserService userService;
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {

@@ -5,7 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,19 +14,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
+@AllArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
-     @Autowired
-     private final JwtTokenUtil jwtTokenUtil;
-     @Autowired
-     private final UserService userService;
 
-    public JwtRequestFilter(UserService userService, JwtTokenUtil jwtTokenUtil) {
-        this.userService= userService;
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
-
-    public JwtRequestFilter() {
-    }
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {
@@ -37,7 +29,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtTokenUtil.extractUsername(jwt);
-            if(username.isEmpty())
+            if (username.isEmpty())
                 throw new UsernameNotFoundException("Username Not Found Exception");
         }
 
