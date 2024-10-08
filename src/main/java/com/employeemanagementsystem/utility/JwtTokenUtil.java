@@ -18,8 +18,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-//    @Value("${jwt.secretKey}")
-    @Value("${jwt.secretKey:defaultSecretKey}")
+    @Value("${jwt.secretKey}")
+//    @Value("${jwt.secretKey:defaultSecretKey}")
     private String secretKey;
 
     @Value("${validity}")
@@ -45,7 +45,7 @@ public class JwtTokenUtil {
     }
 
     // Validate token
-    public Boolean validateToken(String token, String username) {
+    public Boolean validateToken(String token, String username) throws TokenExpiredException{
         String tokenUsername = extractUsername(token);
         return (tokenUsername.equals(username) && !isTokenExpired(token));
     }
@@ -71,10 +71,8 @@ public class JwtTokenUtil {
 
     // Check if token expired
     private Boolean isTokenExpired(String token) {
-        if (!extractExpiration(token).before(new Date())) {
-            return true;
-        }
-        throw new TokenExpiredException("JWT Token Expired!");
+        return extractExpiration(token)
+                .before(new Date());
     }
 
     // Extract expiration date

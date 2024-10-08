@@ -27,16 +27,15 @@ public class SecurityConfiguration {
             "/swagger/**",
             "/v3/api-docs/swagger-config",
             "/v3/api-docs",
-            "/actuator/*",
-            "/actuator/h",
+            "/actuator/*"
     };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**"));
+         httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**"));
         httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         httpSecurity.authorizeHttpRequests(requests -> requests
-                .requestMatchers(publicEndpoints).permitAll()
+                    .requestMatchers(publicEndpoints).permitAll()
                 .anyRequest().authenticated()); //Any other request will be restricted
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
         return httpSecurity.build();

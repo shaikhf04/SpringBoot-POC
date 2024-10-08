@@ -57,6 +57,12 @@
 7 October 2024:
 
 1. Logging in SpringBoot
-2. Feign Client in microservice
+2. Token Expiration Exception Handling
+3. YAML configuration of property and creating different profiles dev,qa
+
+8 October 2024:
+
+1. Multiple security filters
+
 
 

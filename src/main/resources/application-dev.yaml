@@ -7,7 +7,7 @@ logging:
     path: logs/
     name: logs/dev-application.log
   level:
-    root: INFO
+    root: DEBUG
 
 management:
   endpoints:
