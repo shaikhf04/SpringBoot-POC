@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ErrorHandling {
 
+    @ExceptionHandler({TokenExpiredException.class})
+    public ResponseEntity<Error> notExists(TokenExpiredException tokenExpiredException) {
+        Error error = new Error();
+        error.setErrorCode("Token Expired!");
+        error.setErrorMessage(tokenExpiredException.getMessage());
+        return ResponseEntity.ok(error);
+    }
+
     @ExceptionHandler({RecordDoesNotExistException.class,EmployeeNotFoundException.class})
     public ResponseEntity<Error> notExists(RecordDoesNotExistException recordDoesNotExistException) {
         Error error = new Error();

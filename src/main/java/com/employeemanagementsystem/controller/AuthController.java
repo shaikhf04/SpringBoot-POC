@@ -28,7 +28,6 @@ public class AuthController {
 
     @PostMapping("/authenticate/refreshToken")
     public ResponseEntity<AuthenticationResponse> generateRefreshToken(@RequestHeader("Authorization") String refreshToken) {
-
         if(refreshToken==null || refreshToken.isEmpty() || refreshToken.startsWith("Bear "))
             return null;
         String authorizationHeader = refreshToken.substring(7);

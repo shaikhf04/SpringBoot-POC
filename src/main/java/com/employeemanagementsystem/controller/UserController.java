@@ -20,10 +20,9 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping("/register")
     public ResponseEntity<String> saveUser(@Valid @RequestBody UserDTO userDTO) {
-            userService.saveUser(userDTO);
+        userService.saveUser(userDTO);
         return ResponseEntity.ok("User registered successfully. Welcome " + userDTO.getUsername());
     }
 }

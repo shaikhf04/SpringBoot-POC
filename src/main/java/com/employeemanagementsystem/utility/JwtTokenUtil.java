@@ -1,9 +1,9 @@
 package com.employeemanagementsystem.utility;
 
+import com.employeemanagementsystem.errorhandling.TokenExpiredException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -18,10 +18,11 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-    @Value("${secretKey}")
+//    @Value("${jwt.secretKey}")
+    @Value("${jwt.secretKey:defaultSecretKey}")
     private String secretKey;
 
-    @Value("${secretKey.validity}")
+    @Value("${validity}")
     private Long tokenValidity;
 
     private Key getSigningKey() {
@@ -70,8 +71,10 @@ public class JwtTokenUtil {
 
     // Check if token expired
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token)
-                .before(new Date());
+        if (!extractExpiration(token).before(new Date())) {
+            return true;
+        }
+        throw new TokenExpiredException("JWT Token Expired!");
     }
 
     // Extract expiration date

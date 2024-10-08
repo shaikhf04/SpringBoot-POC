@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @EnableMethodSecurity
 @Configuration
 @AllArgsConstructor
@@ -27,7 +26,9 @@ public class SecurityConfiguration {
             "/h2-console/**",
             "/swagger/**",
             "/v3/api-docs/swagger-config",
-            "/v3/api-docs"
+            "/v3/api-docs",
+            "/actuator/*",
+            "/actuator/h",
     };
 
     @Bean

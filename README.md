@@ -53,6 +53,10 @@
 1. Application properties - profiling dev, test
 2. Open API - swagger 
 3. Sonar Lint for code analysis
-4. Feign Client  - microservices
+
+7 October 2024:
+
+1. Logging in SpringBoot
+2. Feign Client in microservice
 
 
