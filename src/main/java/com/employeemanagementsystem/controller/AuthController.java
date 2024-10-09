@@ -40,7 +40,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/authenticate/getToken")
+    @PostMapping("/authenticate/login")
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)  {
             String jwt= "";
             String newRefreshToken="";

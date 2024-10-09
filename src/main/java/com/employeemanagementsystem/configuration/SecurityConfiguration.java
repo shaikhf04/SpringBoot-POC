@@ -20,7 +20,7 @@ public class SecurityConfiguration {
     private static final String[] publicEndpoints = {
             "/test",
             "/authenticate/login",
-            "/authenticate/getToken",
+            "/authenticate/logout",
             "/authenticate/refreshToken",
             "/user/register",
             "/h2-console/**",
