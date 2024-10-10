@@ -1,13 +1,9 @@
 server:
   port: 8081
 
-# Log file path
-logging:
-  file:
-    path: logs/
-    name: logs/qa-application.log
-  level:
-    root: info
+# QA Log file path
+file:
+  path: qa/custom-logfile-${spring.profiles.active}-%d{yy-MM-dd_HH-mm}.%i.log
 
 # H2 Database settings
 spring:
@@ -15,6 +11,12 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, info, metrics
 
   datasource:
     url: jdbc:h2:mem:dcbapp
@@ -29,13 +31,12 @@ spring:
   # JWT secret key and validity settings
 jwt:
   secretKey: secestskjdhsdhskdjhsakjdhsakdjhsriuewyrewiuryweiurwyerhkfjhsdfkjdsheiuowryweiurhfjdsnfsdmnfksdjfhds
-validity: 3600000  # 1 hour validity in milliseconds
+validity: 600000  # 1 minute validity in milliseconds
 
 # OpenAPI (SpringDoc) settings
 springdoc:
   api-docs:
     enabled: true
-    # path: /v1/api-docs
   swagger-ui:
     enabled: true
     path: /swagger-ui.html

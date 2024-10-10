@@ -1,0 +1,42 @@
+<configuration>
+    <springProperty scope="context" name="FILE_PATH" source="file.path"/>
+    <!-- Define a ConsoleAppender that logs to the console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Define the pattern for log messages -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define a custom FileAppender that logs to a file and overwrite existing file if size exceeds >1MB -->
+    <appender name="customRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Log file location -->
+        <file>customRollingFileAppender/custom-logfile.log</file>
+        <!-- Define the rolling policy based on size with history -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Maximum file size before rollover (e.g., 1MB) -->
+            <maxFileSize>1MB</maxFileSize>
+            <!-- File name pattern for rolled over logs -->
+            <fileNamePattern>${FILE_PATH}</fileNamePattern>
+            <!-- Maximum number of backup files to keep -->
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <!-- Log message format (pattern) -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="customRollingFileAppender"/>
+        </root>
+    </springProfile>
+    <springProfile name="qa">
+        <root level="INFO">
+            <appender-ref ref="customRollingFileAppender"/>
+        </root>
+    </springProfile>
+
+</configuration>

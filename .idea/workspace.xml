@@ -57,7 +57,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/farheen.saif.shaikh/IdeaProjects/EmployeeManagementSystem - Copy",
+    "last_opened_file_path": "C:/Users/farheen.saif.shaikh/IdeaProjects/appsdeveloperblogs",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   },
   "keyToStringList": {
@@ -134,13 +134,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728356042247</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fixed tokenexpiration as not working">
+      <option name="closed" value="true" />
+      <created>1728380376781</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728380376781</updated>
+    </task>
+    <task id="LOCAL-00005" summary="few changes- removing logout">
+      <option name="closed" value="true" />
+      <created>1728462194570</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728462194570</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working" />
     <MESSAGE value="Token Expiration Error Handling, YAML file configuration, Profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Token Expiration Error Handling, YAML file configuration, Profile" />
+    <MESSAGE value="Fixed tokenexpiration as not working" />
+    <MESSAGE value="few changes- removing logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="few changes- removing logout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
