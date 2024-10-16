@@ -11,11 +11,11 @@
     <!-- Define a custom FileAppender that logs to a file and overwrite existing file if size exceeds >1MB -->
     <appender name="customRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- Log file location -->
-        <file>customRollingFileAppender/custom-logfile.log</file>
+        <file>${FILE_PATH}/logs/customFile.log</file>
         <!-- Define the rolling policy based on size with history -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- Maximum file size before rollover (e.g., 1MB) -->
-            <maxFileSize>1MB</maxFileSize>
+            <maxFileSize>1KB</maxFileSize>
             <!-- File name pattern for rolled over logs -->
             <fileNamePattern>${FILE_PATH}</fileNamePattern>
             <!-- Maximum number of backup files to keep -->
@@ -28,7 +28,7 @@
     </appender>
 
     <springProfile name="dev">
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="customRollingFileAppender"/>
         </root>

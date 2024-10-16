@@ -35,8 +35,9 @@ public class SecurityConfiguration {
          httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**"));
         httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         httpSecurity.authorizeHttpRequests(requests -> requests
-                    .requestMatchers(publicEndpoints).permitAll()
-                .anyRequest().authenticated()); //Any other request will be restricted
+                 //.requestMatchers(publicEndpoints).permitAll()   //Uncomment to apply security filter as before
+                .anyRequest().permitAll());         // To disable the security filter
+//                .anyRequest().authenticated()); //Any other request will be restricted //Uncomment to apply security filter as before
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
         return httpSecurity.build();
     }

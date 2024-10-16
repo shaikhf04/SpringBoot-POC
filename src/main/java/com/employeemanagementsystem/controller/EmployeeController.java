@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -55,7 +56,7 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/employee/all")
+    @GetMapping("/employee/all/")
     @Operation(
             summary = "Get all employees",
             description = "Retrieve a list of all employees from the system",
@@ -64,8 +65,10 @@ public class EmployeeController {
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             }
     )
-    public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> employeeList = employeeService.getAllEmployees();
+    public ResponseEntity<Page<Employee>> getAllEmployees(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "limit", defaultValue = "3") int limit){
+        Page<Employee> employeeList = employeeService.getAllEmployees(page,limit);
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 

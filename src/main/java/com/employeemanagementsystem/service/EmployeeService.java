@@ -5,14 +5,11 @@ import com.employeemanagementsystem.errorhandling.RecordDoesNotExistException;
 import com.employeemanagementsystem.model.Employee;
 import com.employeemanagementsystem.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,8 +18,6 @@ import java.util.Optional;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
-
-
 
     public Employee createNewEmployee(Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
@@ -33,8 +28,10 @@ public class EmployeeService {
         return employeeRepository.findById(employeeId);
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getAllEmployees(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page-1, size);
+        System.out.println("Page: "+page+"Size: "+size );
+        return employeeRepository.findAll(pageRequest);
     }
 
     public Employee updateEmployees(Employee employee, Integer id) throws EmployeeNotFoundException {

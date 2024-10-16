@@ -64,5 +64,10 @@
 
 1. Multiple security filters
 
+16 October 2024:
+
+1. Pagination on getAllEmployee
+2. Disable security configuration
+
 
 

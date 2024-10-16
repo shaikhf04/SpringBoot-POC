@@ -57,7 +57,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/farheen.saif.shaikh/IdeaProjects/appsdeveloperblogs",
+    "last_opened_file_path": "C:/Users/farheen.saif.shaikh/IdeaProjects/EmployeeManagementSystem",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   },
   "keyToStringList": {
@@ -150,7 +150,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728462194570</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Logback.xml">
+      <option name="closed" value="true" />
+      <created>1728528884098</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728528884098</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Logback.xml">
+      <option name="closed" value="true" />
+      <created>1728528911692</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728528911692</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -158,14 +174,15 @@
     <MESSAGE value="Token Expiration Error Handling, YAML file configuration, Profile" />
     <MESSAGE value="Fixed tokenexpiration as not working" />
     <MESSAGE value="few changes- removing logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="few changes- removing logout" />
+    <MESSAGE value="Logback.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logback.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/controller/EmployeeController.java</url>
-          <line>51</line>
+          <line>52</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -179,14 +196,24 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/controller/EmployeeController.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/service/EmployeeService.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/controller/EmployeeController.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="10" />
+          <line>71</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/controller/EmployeeController.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/employeemanagementsystem/service/EmployeeService.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
